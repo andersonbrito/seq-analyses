@@ -1,0 +1,54 @@
+{
+  "title": "Genome sequencing and evolutionary analysis",
+  "build_url": "https://github.com/grubaughlab",
+  "maintainers": [
+    {"name": "Chaney Kalinich, Joseph Fauver and Anderson Brito (Grubaugh Lab)",
+     "url": "https://grubaughlab.com/"}
+  ],
+  "colorings": [
+
+    {
+      "key": "region",
+      "title": "Region",
+      "type": "categorical"
+    },
+    {
+      "key": "country",
+      "title": "Country",
+      "type": "categorical"
+    },
+    {
+      "key": "division",
+      "title": "Division",
+      "type": "categorical"
+    },
+    {
+      "key": "category",
+      "title": "Category",
+      "type": "categorical"
+    }
+  ],
+  "geo_resolutions": [
+    "division",
+    "country",
+    "region"
+  ],
+  "display_defaults": {
+    "color_by": "category",
+    "distance_measure": "div",
+    "geo_resolution": "division",
+    "map_triplicate": true,
+    "branch_label": "clade"
+  },
+  "filters": [
+    "category",
+    "division",
+    "country",
+    "region"
+  ],
+  "panels": [
+    "tree",
+    "map",
+    "entropy"
+  ]
+}
