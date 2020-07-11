@@ -1,12 +1,21 @@
 {
   "title": "Genome sequencing and evolutionary analysis",
-  "build_url": "https://github.com/grubaughlab",
+  "build_url": "https://github.com/grubaughlab/CT-SARS-CoV-2",
   "maintainers": [
     {"name": "Chaney Kalinich, Joseph Fauver and Anderson Brito (Grubaugh Lab)",
      "url": "https://grubaughlab.com/"}
   ],
   "colorings": [
-
+    {
+      "key": "category",
+      "title": "Category",
+      "type": "categorical"
+    },
+    {
+      "key": "batch",
+      "title": "Batch",
+      "type": "categorical"
+    },
     {
       "key": "region",
       "title": "Region",
@@ -20,11 +29,6 @@
     {
       "key": "division",
       "title": "Division",
-      "type": "categorical"
-    },
-    {
-      "key": "category",
-      "title": "Category",
       "type": "categorical"
     }
   ],
@@ -42,6 +46,7 @@
   },
   "filters": [
     "category",
+    "batch",
     "division",
     "country",
     "region"
