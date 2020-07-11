@@ -27,7 +27,8 @@ if __name__ == '__main__':
     output2 = args.output2
     output3 = args.output3
 
-    # genomes = path + 'sequences_temp.fasta'
+
+    # genomes = path + 'temp_sequences.fasta'
     # metadata1 = path + 'metadata_nextstrain.tsv'
     # metadata2 = path + 'Sequencing-SC2.xlsx'
     # output1 = path + 'metadata_filtered.tsv'
@@ -76,7 +77,7 @@ if __name__ == '__main__':
                         # 'sheet_name' must be changed to match the Excel sheet name
                         converters={'sample': str, 'collection-date': str, 'category': str, 'batch': str})  # this need to be tailored to your lab's naming system
     dfL.fillna('', inplace=True)
-    dfL.set_index('sample', inplace=True)
+    dfL.set_index('id', inplace=True)
 
     dHeaders = {}
     notFound = []
@@ -86,7 +87,7 @@ if __name__ == '__main__':
     for id in sequences.keys():
         # check nextstrain metadata first
         dRow = {}
-        if id in dfN['strain'].to_list() and not id.isdecimal():
+        if id in dfN['strain'].to_list() and not id.startswith('Y-'):
             fields = {column: '' for column in lColumns}
             row = dfN.loc[lambda dfN: dfN['strain'] == id]
 
@@ -131,14 +132,9 @@ if __name__ == '__main__':
         # check lab's metadata otherwise
         if id not in dRow.keys():
             # check lab metadata
-            if id.isdecimal():
+            if id.startswith('Y-'):
                 id = str(id)
                 lab_label[id] = ''
-                # try:
-                #     lab_label[id] = ''
-                # except:
-                #     if id not in lab_label.keys():
-                #         lab_label[id] = ''
 
                 if id in dfL.index:
                     fields = {column: '' for column in lColumns}
@@ -147,7 +143,7 @@ if __name__ == '__main__':
                         code = 'XX'  # change this line to match the acronym of the most likely state of origin if the 'State' field is unknown
                     else:
                         code = row['state']
-                    strain = id + '/' + row['id'] # new strain name
+                    strain = row['sample'] + '/' + id # new strain name
 
                     if strain not in found:
                         gisaid_epi_isl = ''
@@ -217,7 +213,7 @@ if __name__ == '__main__':
     with open(output3, 'w') as outfile3:
         # export new fasta entries
         for id, sequence in sequences.items():
-            if id.isdecimal():
+            if id.startswith('Y-'):
                 if lab_label[id] not in exported:
                     entry = '>' + lab_label[id] + '\n' + sequence + '\n'
                     outfile3.write(entry)

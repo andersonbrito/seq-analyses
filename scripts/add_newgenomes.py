@@ -72,11 +72,10 @@ if __name__ == '__main__':
     with open(outfile, 'w') as output:
         for id in sequences.keys():
             if id not in remove_sequences: # filter out unwanted sequences
-                print(id)
                 entry = ">" + id + "\n" + sequences[id].upper() + "\n"
                 exported.append(id)
                 output.write(entry)
-                if id.isdecimal(): # seacher for digit only newly sequenced genomes
+                if id.startswith('Y-'): # seacher for digit only newly sequenced genomes
                     print('* ' + str(c) + '. ' + id)
                 else:
                     print(str(c) + '. ' + id)
@@ -84,7 +83,6 @@ if __name__ == '__main__':
                 c -= 1
             c += 1
 
-    print(exported)
     # mismatched sequence headers
     print('\n### Possible sequence header mismatches\n')
     m = 1
