@@ -164,7 +164,7 @@ if __name__ == '__main__':
                         country_exposure = ''
                         iso = 'USA'  # change this line to match the country of origin (alpha-3 ISO code)
                         division_exposure = ''
-                        originating_lab = ''
+                        originating_lab = row['lab']
                         submitting_lab = 'Grubaugh Lab - Yale School of Public Health'  # change this line to match you lab's name
                         category = row['category']
                         batch = 'Batch' + str('0' * (3 - len(row['batch']))) + row['batch']
