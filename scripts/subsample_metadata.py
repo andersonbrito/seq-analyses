@@ -91,8 +91,6 @@ if __name__ == '__main__':
     # print(dfN[['same_country', 'country', 'country_exposure']])
     dfN.drop(columns=['same_country'])
 
-    outfile2 = path + 'output.tsv'
-    dfN.to_csv(outfile2, sep='\t', index=False)
     # print(dfN[['strain', 'date']].iloc[[0, -1]])
 
     # get epiweek end date, create column
