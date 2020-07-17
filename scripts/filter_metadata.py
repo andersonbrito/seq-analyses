@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
 
     # nextstrain metadata
-    dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t')
+    dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t', dtype='str')
     try:
         dfN = dfN[['strain', 'gisaid_epi_isl', 'genbank_accession', 'date', 'country', 'division', 'location',
                       'region_exposure', 'country_exposure', 'division_exposure', 'originating_lab', 'submitting_lab']]
@@ -197,6 +197,9 @@ if __name__ == '__main__':
     outputDF = pd.DataFrame(lstNewMetadata, columns=list(lColumns))
     outputDF.to_csv(output1, sep='\t', index=False)
 
+    if len(notFound) > 0:
+        print('\nPlease check for inconsistencies (see above).')
+
     # write renaming file
     with open(output2, 'w') as outfile2:
         # export new metadata lines
@@ -205,11 +208,11 @@ if __name__ == '__main__':
         for id in notFound:
             print('\t* Warning! No metadata found for ' + id)
 
-        if len(notFound) > 0:
-            print('\nPlease check for inconsistencies (see above).')
 
     # write fasta file
     exported = []
+    print('\n### Exporting genomes and metadata')
+    print('\t Exporting all selected, publicly available genomes and metadata')
     with open(output3, 'w') as outfile3:
         # export new fasta entries
         for id, sequence in sequences.items():
@@ -217,7 +220,7 @@ if __name__ == '__main__':
                 if lab_label[id] not in exported:
                     entry = '>' + lab_label[id] + '\n' + sequence + '\n'
                     outfile3.write(entry)
-                    print('* Exporting newly sequenced genome and metadata: ' + id)
+                    print('\t* Newly sequenced genome and metadata: ' + id)
                     exported.append(lab_label[id])
             else:
                 if id not in exported:

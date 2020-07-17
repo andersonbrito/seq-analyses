@@ -1,51 +1,42 @@
 # -*- coding: utf-8 -*-
 
-import pycountry_convert as pyCountry
-import pycountry
-import argparse
-from Bio import SeqIO
 import pandas as pd
 import numpy as np
 from epiweeks import Week
-
+import time
+import argparse
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description="Subsample nextstrain metadata entries keeping only pre-selected samples",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument("--metadata", required=True, help="Metadata file from NextStrain")
+    parser.add_argument("--metadata", required=True, help="Metadata file from nextstrain")
     parser.add_argument("--keep", required=False, help="List of samples to keep, in all instances")
     parser.add_argument("--remove", required=False, help="List of samples to remove, in all instances")
     parser.add_argument("--scheme", required=True, help="Subsampling scheme")
     parser.add_argument("--output", required=True, help="Selected list of samples")
     args = parser.parse_args()
-    
+
     metadata = args.metadata
     keep = args.keep
     remove = args.remove
     scheme = args.scheme
     output = args.output
 
-#     metadata = path + 'metadata_nextstrain.tsv'
-#     keep = path + 'keep.txt'
-#     remove = path + 'remove.txt'
-#     scheme = path + 'subsampling_scheme.tsv'
-    # start = '2019-12-01'
-    # end = '2020-06-30'
+    # metadata = path + 'metadata_nextstrain.tsv'
+    # keep = path + 'keep.txt'
+    # remove = path + 'remove.txt'
+    # scheme = path + 'subsampling_scheme.tsv'
     # output = path + 'selected_strains.tsv'
 
+    today = time.strftime('%Y-%m-%d', time.gmtime())
 
     # force genomes to be kept in final dataset
-    to_keep = [strain.strip() for strain in open(keep, 'r').readlines()]
+    to_keep = [strain.strip() for strain in open(keep, 'r').readlines() if strain[0] not in ['#', '\n']]
 
     # subsampling scheme
     dfS = pd.read_csv(scheme, encoding='utf-8', sep='\t', converters={'size': str})
-    # coverting to datetime format
-    # dfS['start'] = pd.to_datetime(dfS['start'])
-    # dfS['end'] = pd.to_datetime(dfS['end'])
-
-    # print(dfS['end'])
 
     results = {}
 
@@ -69,6 +60,8 @@ if __name__ == '__main__':
     except:
         pass
 
+    dfN.fillna('', inplace=True) # replace empty values by blank
+
     # drop lines if samples are set to be ignored
     for column, names in ignore.items():
         dfN = dfN[~dfN[column].isin(names)]
@@ -82,14 +75,24 @@ if __name__ == '__main__':
     dfN = dfN[~dfN['strain'].isin(to_keep)]
 
     # drop rows with incomplete dates
-    dfN = dfN[dfN['date'].apply(lambda x: len(x.split('-')) == 3)]
-    dfN = dfN[dfN['date'].apply(lambda x: 'X' not in x)]
+    dfN = dfN[dfN['date'].apply(lambda x: len(x.split('-')) == 3)] # accept only full dates
+    dfN = dfN[dfN['date'].apply(lambda x: 'X' not in x)] # exclude -XX-XX missing dates
 
     # convert string dates into date format
     dfN['date'] = pd.to_datetime(dfN['date']) # coverting to datetime format
     dfN = dfN.sort_values(by='date')  # sorting lines by date
     start, end = dfN['date'].min(), dfN['date'].max()
 
+
+    # drop columns where 'country' and 'country_exposure' disagree
+    dfN['same_country'] = np.where(dfN['country'] == dfN['country_exposure'], 'yes', 'no') # compare values
+    dfN.loc[dfN['country_exposure'] == '', 'same_country'] = 'yes'
+    dfN = dfN[dfN['same_country'].apply(lambda x: 'yes' in x)] # exclude rows with conflicting place of origin
+    # print(dfN[['same_country', 'country', 'country_exposure']])
+    dfN.drop(columns=['same_country'])
+
+    outfile2 = path + 'output.tsv'
+    dfN.to_csv(outfile2, sep='\t', index=False)
     # print(dfN[['strain', 'date']].iloc[[0, -1]])
 
     # get epiweek end date, create column
@@ -99,7 +102,6 @@ if __name__ == '__main__':
 
 
     ## SAMPLE FOCAL AND CONTEXTUAL SEQUENCES
-
     purposes = ['focus', 'context']
     subsamplers = [] # list of focal and contextual categories
     for category in purposes:
@@ -145,10 +147,6 @@ if __name__ == '__main__':
                     sample_size = int(dfS.loc[dfS['name'] == name, 'size'])
                     total_genomes = dfLevel[level].count()
                     for epiweek, dfEpiweek in gEpiweek:
-                        # dfEpiweek['weight'] = dfEpiweek['date'].value_counts()
-
-                        # print('')
-                        # print(level, name)
                         bin_pool = dfEpiweek['epiweek'].count() # genomes in bin
                         sampled = int(np.ceil((bin_pool/total_genomes) * sample_size)) # proportion sampled from bin
                         # print(epiweek, '-', sampled, '/', bin_pool)
@@ -157,30 +155,30 @@ if __name__ == '__main__':
 
                         # selector
                         random_subset = dfEpiweek.sample(n=sampled)
-                        # print(random_subset['strain'].to_list())
                         selected = random_subset['strain'].to_list()
                         results[level][name] = results[level][name] + selected
-
-                        # print(level, name, results[level][name])
 
                     # drop pre-selected samples to prevent duplicates
                     dfN = dfN[~dfN[level].isin([name])]
 
 
     ### EXPORT RESULTS
-    print('\n# Genomes sampled per category in subsampling scheme\n')
+    print('# Genomes sampled per category in subsampling scheme\n')
     exported = []
-    with open(keep, 'a') as outfile:
+    with open(output, 'a') as outfile:
+        outfile.write('# Genomes selected on ' + today + '\n')
         for level, name in results.items():
             for place, entries in name.items():
                 if len(entries) > 1:
                     print(str(len(entries)) + '\t' + place + ' (' + level + ')')
                     for strain_name in entries:
-                        if strain_name not in exported:
+                        if strain_name not in [exported + to_keep]:
                             outfile.write(strain_name + '\n')
                             exported.append(strain_name)
-        # for inclusion of selected samples listed in keep.txt
-        print('\n' + str(len(to_keep)) + ' genomes added from pre-selected list')
+
+        # report selected samples listed in keep.txt
+        print('\n' + str(len(to_keep)) + ' genomes added from pre-selected list\n')
+        outfile.write('\n# Pre-existing genomes listed in keep.txt\n')
         for strain in to_keep:
             if strain not in exported:
                 outfile.write(strain + '\n')

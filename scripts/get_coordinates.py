@@ -25,13 +25,15 @@ if __name__ == '__main__':
     cache = args.cache
     output = args.output
 
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov_nba/nextstrain/20200705_batch1/pre-analyses/'
     # metadata = path + 'metadata_geo.tsv'
     # geoscheme = path + "geoscheme.tsv"
     # columns = ['region', 'country', 'division', 'location']
     # cache = path + 'cache_coordinates.tsv'
     # output = path + 'lat_longs.tsv'
 
-    force_coordinates = {'Puerto Rico': ('18.235853', '-66.522056'), 'Virgin Islands': ('17.727304', '-64.748327')}
+    force_coordinates = {'Puerto Rico': ('18.235853', '-66.522056'), 'Virgin Islands': ('17.727304', '-64.748327'),
+                         'Indiana': ('39.768534', '-86.158011')}
 
     results = {trait: {} for trait in columns}  # content to be exported as final result
 

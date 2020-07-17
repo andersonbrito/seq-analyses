@@ -35,7 +35,6 @@ if __name__ == '__main__':
         if id not in newly_sequenced.keys(): # avoid potential duplicates
             newly_sequenced[id] = str(seq)
 
-
     # create a list of the existing sequences
     all_sequences = {}
     for fasta in SeqIO.parse(open(genomes),'fasta'):
@@ -75,7 +74,7 @@ if __name__ == '__main__':
                 entry = ">" + id + "\n" + sequences[id].upper() + "\n"
                 exported.append(id)
                 output.write(entry)
-                if id.startswith('Y-'): # seacher for digit only newly sequenced genomes
+                if id.startswith('Y-'): # search for newly sequenced genomes, named "Y-9999"
                     print('* ' + str(c) + '. ' + id)
                 else:
                     print(str(c) + '. ' + id)
