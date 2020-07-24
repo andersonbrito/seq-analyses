@@ -432,7 +432,7 @@ if __name__ == '__main__':
 
     # special colouring, hardcoded
     category = {'International': '#BFBFBF', 'USA': '#ECD26C', 'Florida': '#eca06a', 'Family': '#0F8A3E',
-                'Staff-IN': '#0068B1', 'Staff-OUT': '#66BFFF', 'Team': '#E61649'}
+                'Staff-IN': '#003E6A', 'Staff-OUT': '#99B1C3', 'Staff-Unknown': '#4C7796', 'Player': '#E51192'}
     results['category'] = {}
     for cat, hex in category.items():
         results['category'].update({cat: hex})

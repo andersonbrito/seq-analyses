@@ -162,7 +162,8 @@ if __name__ == '__main__':
 
                         region_exposure = ''
                         country_exposure = ''
-                        iso = 'USA'  # change this line to match the country of origin (alpha-3 ISO code)
+                        iso = get_iso(country)
+#                         iso = 'USA'  # change this line to match the country of origin (alpha-3 ISO code)
                         division_exposure = ''
                         originating_lab = row['lab']
                         submitting_lab = 'Grubaugh Lab - Yale School of Public Health'  # change this line to match you lab's name
