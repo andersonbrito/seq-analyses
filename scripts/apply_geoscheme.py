@@ -28,10 +28,7 @@ if __name__ == '__main__':
     focus = ['USA', 'Florida']
     not_focus = ['Oceania', 'Southern Asia', 'Central Asia', 'Western Asia',
                  'Eastern Europe', 'Northern Africa', 'Western Africa', 'Middle Africa', 'Eastern Africa',
-                 'Southern Africa', 'South America', 'Central America', 'Caribbean',
-                 'Austria', 'Brunei', 'Croatia', 'Denmark', 'Finland', 'Greece', 'Iceland', 'Indonesia',
-                 'Ireland', 'Japan', 'Latvia', 'Luxembourg', 'Malaysia', 'Netherlands', 'Norway', 'Philippines',
-                 'Portugal', 'Serbia', 'Slovenia', 'Sweden', 'Switzerland', 'Taiwan', 'Thailand', 'Timor-Leste', 'Vietnam']
+                 'Southern Africa', 'South America', 'Central America', 'Caribbean']
 
     # get ISO alpha3 country codes
     isos = {}
