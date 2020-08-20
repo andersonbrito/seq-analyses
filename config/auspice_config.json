@@ -30,7 +30,10 @@
       "key": "division",
       "title": "Division",
       "type": "categorical"
-    }
+    },
+    {"key":"sequencing_collection_date",
+    "title":"Collected for sequencing",
+    "type":"categorical"}
   ],
   "geo_resolutions": [
     "division",

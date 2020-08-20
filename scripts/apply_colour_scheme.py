@@ -431,9 +431,9 @@ if __name__ == '__main__':
             results['location'].update({location: colour})
 
     # special colouring, hardcoded
-    category = {'International': '#BFBFBF', 'USA': '#ECD26C', 'Florida': '#eca06a', 'Family': '#0F8A3E',
-                'Staff-IN': '#003E6A', 'Staff-OUT': '#99B1C3', 'Staff-Unknown': '#4C7796', 'Player': '#E51192',
-                'Pre-ORL': '#92E511'}
+    category = {'International': '#BFBFBF', 'USA': '#06D6A0', 'Florida': '#ECA06A', 'Family': '#0F8A3E',
+                'Staff-IN': '#003E6A', 'Staff-OUT': '#99B1C3', 'Staff-Unknown': '#4C7796', 'Player': '#EF476F',
+                'Pre-ORL': '#FFD166','Community':'#A25015'}
     results['category'] = {}
     for cat, hex in category.items():
         results['category'].update({cat: hex})

@@ -69,13 +69,14 @@ if __name__ == '__main__':
         pass
     dfN['category'] = ''
     dfN['batch'] = ''
+    dfN['sequencing_collection_date'] = ''
     dfN.fillna('', inplace=True)
     lColumns = dfN.columns.values  # list of column in the original metadata file
 
     # Lab genomes metadata
     dfL = pd.read_excel(metadata2, index_col=None, header=0, sheet_name='Genomes',
                         # 'sheet_name' must be changed to match the Excel sheet name
-                        converters={'sample': str, 'collection-date': str, 'category': str, 'batch': str})  # this need to be tailored to your lab's naming system
+                        converters={'sample': str, 'collection-date': str, 'category': str, 'batch': str, 'sequencing-collection-date':str})  # this need to be tailored to your lab's naming system
     dfL.fillna('', inplace=True)
     dfL.set_index('id', inplace=True)
 
@@ -154,6 +155,7 @@ if __name__ == '__main__':
                             date = ''
 
                         country = row['country']
+                        sequencing_collection_date = row['sequencing-collection-date']
                         division = row['division']
                         if row['location'] in ['', '?', 'N/A']:
                             location = ''
@@ -173,7 +175,7 @@ if __name__ == '__main__':
 
                         lValues = [strain, gisaid_epi_isl, genbank_accession, date, iso, country, division, location,
                                    region_exposure, country_exposure, division_exposure, originating_lab, submitting_lab,
-                                   category, batch]
+                                   category, batch, sequencing_collection_date]
 
                         header = '|'.join([strain, country, division.replace(' ', '-'), date])
                         dHeaders[strain] = header

@@ -1,0 +1,134 @@
+region	Eastern Asia	#8F29A3
+region	Southeastern Asia	#CC99FF
+region	Northern Europe	#2929A3
+region	Western Europe	#6183D1
+region	Southern Europe	#99DDFF
+region	North America	#A32929
+
+country	China	#CE73E0
+country	Singapore	#AA73E0
+country	United Kingdom	#7373E0
+country	France	#2952A3
+country	Belgium	#6186D1
+country	Germany	#99BBFF
+country	Spain	#297AA3
+country	Italy	#99DDFF
+country	USA-South	#A32929
+country	USA	#BA4545
+country	USA-West	#D16161
+country	USA-Northeast	#E87D7D
+country	USA-Midwest	#FF9999
+
+division	Puerto Rico	#A32929
+division	Florida	#A52B2B
+division	Texas	#A72E2E
+division	Louisiana	#A93030
+division	South Carolina	#AB3333
+division	Georgia	#AD3535
+division	Arkansas	#AF3838
+division	Oklahoma	#B13A3A
+division	Tennessee	#B33D3D
+division	North Carolina	#B53F3F
+division	Virginia	#B74242
+division	Washington DC	#BA4545
+division	Maryland	#BC4747
+division	Naples	#BE4A4A
+division	Unknown	#C04C4C
+division	Hawaii	#C24F4F
+division	California	#C45151
+division	Arizona	#C65454
+division	New Mexico	#C85656
+division	Colorado	#CA5959
+division	Utah	#CC5B5B
+division	Nevada	#CE5E5E
+division	Wyoming	#D16161
+division	Idaho	#D36363
+division	Oregon	#D56666
+division	Washington	#D76868
+division	Alaska	#D96B6B
+division	Pennsylvania	#DB6D6D
+division	New Jersey	#DD7070
+division	Connecticut	#DF7272
+division	Rhode Island	#E17575
+division	Massachusetts	#E37777
+division	New York	#E57A7A
+division	New Hampshire	#E87D7D
+division	Vermont	#EA7F7F
+division	Kansas	#EC8282
+division	Missouri	#EE8484
+division	Indiana	#F08787
+division	Nebraska	#F28989
+division	Illinois	#F48C8C
+division	Ohio	#F68E8E
+division	Iowa	#F89191
+division	Michigan	#FA9393
+division	Wisconsin	#FC9696
+division	Minnesota	#FF9999
+
+location	Puerto Rico	#A32929
+location	USA	#A52B2B
+location	Orlando	#A72D2D
+location	Texas	#A93030
+location	Louisiana	#AB3232
+location	South Carolina	#AD3535
+location	Georgia	#AF3737
+location	Arkansas	#B13A3A
+location	Oklahoma	#B33C3C
+location	Tennessee	#B53F3F
+location	North Carolina	#B74141
+location	Virginia	#B94444
+location	Washington DC	#BB4646
+location	Maryland	#BD4949
+location	Naples	#BF4B4B
+location	Unknown	#C14E4E
+location	Hawaii	#C35050
+location	California	#C55353
+location	Arizona	#C75555
+location	New Mexico	#C95858
+location	Colorado	#CB5A5A
+location	Utah	#CD5D5D
+location	Nevada	#CF5F5F
+location	Wyoming	#D26262
+location	Idaho	#D46464
+location	Oregon	#D66767
+location	Washington	#D86969
+location	Alaska	#DA6C6C
+location	Pennsylvania	#DC6E6E
+location	New Jersey	#DE7171
+location	Connecticut	#E07373
+location	Rhode Island	#E27676
+location	Massachusetts	#E47878
+location	New York	#E67B7B
+location	New Hampshire	#E87D7D
+location	Vermont	#EA8080
+location	Kansas	#EC8282
+location	Missouri	#EE8585
+location	Indiana	#F08787
+location	Nebraska	#F28A8A
+location	Illinois	#F48C8C
+location	Ohio	#F68F8F
+location	Iowa	#F89191
+location	Michigan	#FA9494
+location	Wisconsin	#FC9696
+location	Minnesota	#FF9999
+
+batch	Batch001	#0000B2
+batch	Batch002	#0051B2
+batch	Batch003	#03A5A8
+batch	Batch004	#47B265
+batch	Batch005	#89B223
+batch	Batch006	#B28600
+batch	Batch007	#B23900
+batch	Batch008	#880000
+
+category	International	#BFBFBF
+category	USA	#06D6A0
+category	Florida	#ECA06A
+category	Family	#0F8A3E
+category	Staff-IN	#003E6A
+category	Staff-OUT	#99B1C3
+category	Staff-Unknown	#4C7796
+category	Player	#EF476F
+category	Pre-ORL	#FFD166
+category	Community	#A25015
+
