@@ -21,7 +21,8 @@ dependencies:
   - pycountry-convert
   - pycountry
   - uszipcode
-  - xlrd
+  - xlrd==1.2.0
   - lxml
   - numpy
   - matplotlib
+  - epiweeks
